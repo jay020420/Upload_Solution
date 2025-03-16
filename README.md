@@ -1,5 +1,6 @@
 업로드 솔루션
 
+```
 product-upload-solution/
 ├── backend/                    # 백엔드 (Node.js/Express)
 │   ├── config/                 # 설정 파일
@@ -50,4 +51,4 @@ product-upload-solution/
 │
 ├── .env                        # 환경 변수
 ├── .gitignore                  # Git 제외 파일
-└── README.md                   # 프로젝트 문서
+└── README.md                   # 프로젝트 문서```
