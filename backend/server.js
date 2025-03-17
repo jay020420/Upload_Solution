@@ -12,6 +12,7 @@ const productRoutes = require('./routes/productRoutes');
 const userRoutes = require('./routes/userRoutes');
 const marketplaceRoutes = require('./routes/marketplaceRoutes');
 const uploadRoutes = require('./routes/uploadRoutes');
+const batchJobRoutes = require('./routes/batchJobRoutes');
 
 // 환경변수 설정
 dotenv.config();
@@ -45,6 +46,7 @@ app.use('/api/products', productRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/marketplaces', marketplaceRoutes);
 app.use('/api/uploads', uploadRoutes);
+app.use('/api/batch-jobs', batchJobRoutes);
 
 // 에러 핸들링 미들웨어
 app.use((err, req, res, next) => {
