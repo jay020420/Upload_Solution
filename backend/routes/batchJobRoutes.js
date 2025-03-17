@@ -607,3 +607,5 @@ module.exports = {
   processProductCategoryUpdate,
   processProductDelete
 };
+
+module.exports = router;

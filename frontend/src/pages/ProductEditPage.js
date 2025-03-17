@@ -2,7 +2,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { PageHeader, Alert } from 'antd';
-import { getProductDetails } from './actions/productActions';
+import { getProductDetails } from '../actions/productActions';
 import ProductForm from '../components/products/ProductForm';
 import Loader from '../components/common/Loader';
 

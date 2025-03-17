@@ -1,0 +1,30 @@
+/* src/index.css */
+body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+      'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+      sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  code {
+    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+      monospace;
+  }
+  
+  /* 사이드바 레이아웃 조정 */
+  .ant-layout-has-sider .ant-layout-sider {
+    position: fixed;
+    height: 100vh;
+    left: 0;
+    z-index: 999;
+  }
+  
+  .ant-layout-has-sider .ant-layout-content {
+    margin-left: 200px;
+  }
+  
+  .ant-layout-sider-collapsed + .ant-layout .ant-layout-content {
+    margin-left: 80px;
+  }

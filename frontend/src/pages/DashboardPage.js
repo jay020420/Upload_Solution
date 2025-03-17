@@ -12,7 +12,7 @@ import {
   AreaChartOutlined, CheckCircleOutlined, CloseCircleOutlined,
   WarningOutlined
 } from '@ant-design/icons';
-import { getProducts } from './actions/productActions';
+import { getProducts } from '../actions/productActions';
 import { listMarketplaces } from '../actions/marketplaceActions';
 import Loader from '../components/common/Loader';
 
