@@ -1,0 +1,56 @@
+/* App.css */
+.App {
+    text-align: center;
+  }
+  
+  .site-layout .site-layout-background {
+    background: #fff;
+  }
+  
+  /* 사이드바 스타일 */
+  .ant-layout-sider {
+    background: #001529;
+    box-shadow: 2px 0 6px rgba(0, 21, 41, 0.35);
+  }
+  
+  /* 헤더 스타일 */
+  .ant-layout-header {
+    background: #fff;
+    padding: 0 24px;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 1px 4px rgba(0, 21, 41, 0.08);
+  }
+  
+  /* 콘텐츠 영역 스타일 */
+  .ant-layout-content {
+    margin: 24px 16px;
+    padding: 24px;
+    background: #fff;
+    min-height: 280px;
+  }
+  
+  /* 페이지 타이틀 */
+  .page-header {
+    margin-bottom: 24px;
+  }
+  
+  /* 테이블 액션 버튼 */
+  .table-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 16px;
+  }
+  
+  /* 카드 스타일 */
+  .dashboard-card {
+    margin-bottom: 24px;
+  }
+  
+  /* 미디어 쿼리 - 모바일 대응 */
+  @media (max-width: 768px) {
+    .ant-layout-content {
+      margin: 16px 8px;
+      padding: 16px;
+    }
+  }
