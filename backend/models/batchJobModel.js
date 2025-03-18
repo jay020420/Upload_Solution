@@ -23,8 +23,8 @@ const BatchJobItemSchema = new mongoose.Schema({
     message: String,
     data: mongoose.Schema.Types.Mixed
   },
-  errors: [String],
-  processingTime: Number, // 처리 소요 시간 (ms)
+  errorMessages: [String], // 'errors'에서 'errorMessages'로 이름 변경
+  processingTime: Number,
   retryCount: { type: Number, default: 0 },
   lastProcessedAt: Date
 });

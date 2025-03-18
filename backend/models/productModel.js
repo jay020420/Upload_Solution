@@ -48,7 +48,7 @@ const MarketplaceInfoSchema = new mongoose.Schema({
   },
   categoryMapping: { type: String },
   lastSyncDate: { type: Date, default: Date.now },
-  errors: [String]
+  errorMessages: [String] // 'errors'에서 'errorMessages'로 이름 변경
 });
 
 // 상품 메인 스키마
