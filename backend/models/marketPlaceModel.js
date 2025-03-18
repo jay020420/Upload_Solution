@@ -192,11 +192,28 @@ MarketplaceSchema.methods.mapProductData = function(product) {
       value = mapping.defaultValue;
     }
     
-    // 변환 함수가 있는 경우 적용 (실제 구현 시 eval 대신 더 안전한 방법 사용 권장)
+    // 변환 함수가 있는 경우 적용 (eval 대신 안전한 방식 사용)
     if (value !== undefined && value !== null && mapping.transformFunction) {
       try {
-        const transformFn = new Function('value', 'return ' + mapping.transformFunction);
-        value = transformFn(value);
+        // 안전하지 않은 함수 실행 방지를 위한 검증 
+        if (mapping.transformFunction.includes('require') || 
+            mapping.transformFunction.includes('process') || 
+            mapping.transformFunction.includes('global') ||
+            mapping.transformFunction.includes('__dirname') ||
+            mapping.transformFunction.includes('__filename')) {
+          console.error(`변환 함수에 안전하지 않은 코드가 포함되어 있습니다: ${mapping.systemField}`);
+        } else {
+          // Function 생성자 사용 (eval보다는 안전하지만 여전히 주의 필요)
+          const transformFn = new Function('value', `
+            try {
+              return ${mapping.transformFunction};
+            } catch (e) {
+              console.error("변환 함수 실행 오류:", e);
+              return value;
+            }
+          `);
+          value = transformFn(value);
+        }
       } catch (error) {
         console.error(`Transform function error for ${mapping.systemField}:`, error);
       }

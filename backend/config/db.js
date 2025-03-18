@@ -7,12 +7,9 @@ const mongoose = require('mongoose');
  */
 const connectDB = async () => {
   try {
-    const conn = await mongoose.connect(process.env.MONGO_URI, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-      useCreateIndex: true,
-      useFindAndModify: false
-    });
+    // MongoDB 7 버전부터는 useNewUrlParser, useUnifiedTopology가 기본값이므로 제거
+    // useCreateIndex, useFindAndModify는 더 이상 지원되지 않음
+    const conn = await mongoose.connect(process.env.MONGO_URI);
 
     console.log(`MongoDB 연결 성공: ${conn.connection.host}`);
     return conn;

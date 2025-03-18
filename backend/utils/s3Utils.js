@@ -9,9 +9,10 @@ const { getS3 } = require('../config/s3');
  * 파일을 S3에 업로드
  * @param {Object} file - 업로드할 파일 객체 (express-fileupload)
  * @param {string} folder - S3 내의 폴더 경로
+ * @param {Object} options - 추가 옵션
  * @returns {Promise<Object>} S3 업로드 결과
  */
-const uploadToS3 = async (file, folder = '') => {
+const uploadToS3 = async (file, folder = '', options = {}) => {
   try {
     // S3 인스턴스 및 버킷 정보 가져오기
     const { s3, bucket } = getS3();
@@ -29,7 +30,8 @@ const uploadToS3 = async (file, folder = '') => {
       Key: s3Key,
       Body: fs.createReadStream(file.tempFilePath),
       ContentType: file.mimetype,
-      ACL: 'public-read' // 공개 액세스 허용
+      // ACL 설정: 기본적으로 비공개, 필요한 경우만 공개 액세스 허용
+      ACL: options.isPublic ? 'public-read' : 'private'
     };
     
     // S3에 업로드
@@ -52,6 +54,11 @@ const uploadToS3 = async (file, folder = '') => {
  */
 const deleteFromS3 = async (fileUrl) => {
   try {
+    // 파일 URL이 없으면 무시
+    if (!fileUrl) {
+      return { message: '삭제할 파일 URL이 제공되지 않았습니다.' };
+    }
+    
     // S3 인스턴스 및 버킷 정보 가져오기
     const { s3, bucket } = getS3();
     
@@ -86,9 +93,10 @@ const deleteFromS3 = async (fileUrl) => {
  * 여러 파일을 S3에 업로드
  * @param {Array} files - 업로드할 파일 객체 배열
  * @param {string} folder - S3 내의 폴더 경로
+ * @param {Object} options - 추가 옵션
  * @returns {Promise<Array>} S3 업로드 결과 배열
  */
-const uploadMultipleToS3 = async (files, folder = '') => {
+const uploadMultipleToS3 = async (files, folder = '', options = {}) => {
   try {
     const uploadPromises = [];
     
@@ -97,7 +105,7 @@ const uploadMultipleToS3 = async (files, folder = '') => {
     
     // 각 파일에 대해 업로드 작업 생성
     filesArray.forEach(file => {
-      uploadPromises.push(uploadToS3(file, folder));
+      uploadPromises.push(uploadToS3(file, folder, options));
     });
     
     // 모든 업로드 작업 병렬 처리

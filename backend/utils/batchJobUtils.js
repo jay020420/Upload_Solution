@@ -523,14 +523,11 @@ const processProductDelete = async (productId, params) => {
       sku: product.sku
     };
     
-    // 이미지 삭제 (S3 등에서 - 실제로는 s3Utils 이용)
-    // 예: 이미지 URL 배열 구성 후 삭제 함수 호출
-    /*
+    // 이미지 삭제 (S3에서)
     if (product.images && product.images.length > 0) {
       const imageUrls = product.images.map(img => img.url);
       await Promise.all(imageUrls.map(url => deleteFromS3(url)));
     }
-    */
     
     // 상품 삭제
     await product.remove();
