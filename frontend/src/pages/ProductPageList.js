@@ -5,13 +5,15 @@ import { Link } from 'react-router-dom';
 import { 
   Table, Button, Card, Input, Select, Row, Col, 
   Tag, Tooltip, Dropdown, Menu, Space, Modal, Typography,
-  DatePicker, Statistic, PageHeader
+  DatePicker, Statistic, PageHeader, Alert
 } from 'antd';
 import { 
   PlusOutlined, SearchOutlined, FilterOutlined, 
   SyncOutlined, MoreOutlined, DownloadOutlined,
   DeleteOutlined, EditOutlined, ExportOutlined,
-  EyeOutlined, LinkOutlined, FileExcelOutlined
+  EyeOutlined, LinkOutlined, FileExcelOutlined,
+  DatabaseOutlined, TagOutlined, WarningOutlined,
+  CloseCircleOutlined
 } from '@ant-design/icons';
 import moment from 'moment';
 
@@ -21,6 +23,8 @@ import {
   exportProductsToExcel 
 } from '../actions/productActions';
 import BulkUploadModal from '../components/products/BulkUploadModal';
+import ProductBatchActionButton from '../components/products/ProductBatchActionButton';
+import Loader from '../components/common/Loader';
 
 const { RangePicker } = DatePicker;
 const { Option } = Select;
@@ -204,7 +208,7 @@ const ProductListPage = ({ history }) => {
               No Img
             </div>
           )}
-          <Link to={`/admin/product/${record._id}/edit`}>{text}</Link>
+          <Link to={`/admin/product/${record._id}`}>{text}</Link>
         </Space>
       ),
     },
@@ -363,7 +367,7 @@ const ProductListPage = ({ history }) => {
                 <Link to={`/admin/product/${record._id}/edit`}>수정</Link>
               </Menu.Item>
               <Menu.Item key="view" icon={<EyeOutlined />}>
-                <Link to={`/product/${record._id}`} target="_blank">상품 보기</Link>
+                <Link to={`/admin/product/${record._id}`}>상세 보기</Link>
               </Menu.Item>
               <Menu.Divider />
               <Menu.Item 
@@ -497,7 +501,7 @@ const ProductListPage = ({ history }) => {
           <div style={{ marginBottom: '16px' }}>
             <Space>
               <Button 
-                type="danger" 
+                danger
                 icon={<DeleteOutlined />} 
                 onClick={handleBulkDelete}
               >
@@ -509,6 +513,10 @@ const ProductListPage = ({ history }) => {
               >
                 선택 항목 내보내기
               </Button>
+              <ProductBatchActionButton 
+                selectedProducts={selectedRowKeys} 
+                refreshProducts={fetchProducts} 
+              />
             </Space>
           </div>
         )}
@@ -538,6 +546,16 @@ const ProductListPage = ({ history }) => {
             />
           </Col>
         </Row>
+        
+        {error && (
+          <Alert
+            message="상품 목록 조회 오류"
+            description={error}
+            type="error"
+            showIcon
+            style={{ marginBottom: '16px' }}
+          />
+        )}
         
         <Table
           rowSelection={rowSelection}

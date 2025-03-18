@@ -58,6 +58,13 @@ const BatchJobModal = ({ visible, onCancel, selectedProducts = [], refreshProduc
     }
   }, [success, dispatch, onCancel, refreshProducts]);
   
+  // initialJobType이 변경되면 jobType 업데이트
+  useEffect(() => {
+    if (initialJobType) {
+      setJobType(initialJobType);
+    }
+  }, [initialJobType]);
+  
   // 폼 초기화 함수
   const resetForm = () => {
     form.resetFields();

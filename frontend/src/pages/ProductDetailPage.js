@@ -13,7 +13,7 @@ import {
   CloseCircleOutlined, WarningOutlined, CopyOutlined,
   ArrowLeftOutlined
 } from '@ant-design/icons';
-import { getProductDetails, deleteProduct, syncProductToMarketplace } from './actions/productActions';
+import { getProductDetails, deleteProduct, syncProductToMarketplace } from '../actions/productActions';
 import { listMarketplaces } from '../actions/marketplaceActions';
 import Loader from '../components/common/Loader';
 
@@ -63,7 +63,14 @@ const ProductDetailPage = ({ match, history }) => {
   
   // 상품 삭제 처리
   const handleDelete = () => {
-    dispatch(deleteProduct(productId));
+    Modal.confirm({
+      title: '상품 삭제',
+      content: '이 상품을 삭제하시겠습니까? 이 작업은 되돌릴 수 없습니다.',
+      okText: '삭제',
+      okType: 'danger',
+      cancelText: '취소',
+      onOk: () => dispatch(deleteProduct(productId))
+    });
   };
   
   // 마켓플레이스 동기화 모달 표시
@@ -153,7 +160,7 @@ const ProductDetailPage = ({ match, history }) => {
             key="delete"
             danger
             icon={<DeleteOutlined />}
-            onClick={() => handleDelete()}
+            onClick={handleDelete}
             loading={loadingDelete}
           >
             삭제
@@ -170,7 +177,7 @@ const ProductDetailPage = ({ match, history }) => {
       />
       
       {loading ? (
-        <Loader fullScreen />
+        <Loader />
       ) : error ? (
         <Alert
           message="상품 조회 오류"
@@ -250,7 +257,7 @@ const ProductDetailPage = ({ match, history }) => {
                   <Descriptions.Item label="카테고리">
                     {product.categories && product.categories.length > 0 ? (
                       product.categories.map(cat => (
-                        <Tag key={cat._id || cat}>{cat.name || '-'}</Tag>
+                        <Tag key={cat._id || cat}>{cat.name || cat}</Tag>
                       ))
                     ) : '-'}
                   </Descriptions.Item>

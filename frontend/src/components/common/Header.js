@@ -1,20 +1,20 @@
 // src/components/common/Header.js
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, useHistory } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Layout, Menu, Dropdown, Avatar, Badge, Space, Typography, Button } from 'antd';
 import { 
   UserOutlined, LogoutOutlined, SettingOutlined, 
   MenuUnfoldOutlined, MenuFoldOutlined, BellOutlined 
 } from '@ant-design/icons';
-import { logout } from '../../actions/userActions';
+import { logout } from '../../actions/userAction';
 
 const { Header: AntHeader } = Layout;
 const { Title, Text } = Typography;
 
 const Header = ({ collapsed, toggleSidebar }) => {
   const dispatch = useDispatch();
-  const history = useHistory();
+  const navigate = useNavigate();
   
   // Redux state
   const userLogin = useSelector(state => state.userLogin);
@@ -23,7 +23,7 @@ const Header = ({ collapsed, toggleSidebar }) => {
   // Handle logout
   const handleLogout = () => {
     dispatch(logout());
-    history.push('/login');
+    navigate('/login');
   };
   
   // User dropdown menu

@@ -1,6 +1,6 @@
 // src/App.js
 import React, { useEffect } from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { Layout } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -31,7 +31,7 @@ import BatchJobListPage from './pages/BatchJobListPage';
 import BatchJobDetailPage from './pages/BatchJobDetailPage';
 
 // Actions
-import { getUserDetails } from './actions/userActions';
+import { getUserDetails } from './actions/userAction';
 
 // CSS
 import './App.css';
@@ -61,43 +61,111 @@ const App = () => {
           <Header />
           
           <Content style={{ margin: '24px 16px', padding: 24, minHeight: 280 }}>
-            <Switch>
+            <Routes>
               {/* 공개 라우트 */}
-              <Route path="/login" component={LoginPage} exact />
-              <Route path="/register" component={RegisterPage} exact />
+              <Route path="/login" element={<LoginPage />} />
+              <Route path="/register" element={<RegisterPage />} />
               
               {/* 대시보드 */}
-              <PrivateRoute path="/" component={DashboardPage} exact />
-              <PrivateRoute path="/dashboard" component={DashboardPage} exact />
+              <Route path="/" element={
+                <PrivateRoute>
+                  <DashboardPage />
+                </PrivateRoute>
+              } />
+              <Route path="/dashboard" element={
+                <PrivateRoute>
+                  <DashboardPage />
+                </PrivateRoute>
+              } />
               
               {/* 상품 관리 */}
-              <PrivateRoute path="/admin/products" component={ProductListPage} exact />
-              <PrivateRoute path="/admin/product/create" component={ProductCreatePage} exact />
-              <PrivateRoute path="/admin/product/:id" component={ProductDetailPage} exact />
-              <PrivateRoute path="/admin/product/:id/edit" component={ProductEditPage} exact />
+              <Route path="/admin/products" element={
+                <PrivateRoute>
+                  <ProductListPage />
+                </PrivateRoute>
+              } />
+              <Route path="/admin/product/create" element={
+                <PrivateRoute>
+                  <ProductCreatePage />
+                </PrivateRoute>
+              } />
+              <Route path="/admin/product/:id" element={
+                <PrivateRoute>
+                  <ProductDetailPage />
+                </PrivateRoute>
+              } />
+              <Route path="/admin/product/:id/edit" element={
+                <PrivateRoute>
+                  <ProductEditPage />
+                </PrivateRoute>
+              } />
               
               {/* 카테고리 관리 */}
-              <PrivateRoute path="/admin/categories" component={CategoryListPage} exact />
-              <PrivateRoute path="/admin/category/create" component={CategoryEditPage} exact />
-              <PrivateRoute path="/admin/category/:id/edit" component={CategoryEditPage} exact />
+              <Route path="/admin/categories" element={
+                <PrivateRoute>
+                  <CategoryListPage />
+                </PrivateRoute>
+              } />
+              <Route path="/admin/category/create" element={
+                <PrivateRoute>
+                  <CategoryEditPage />
+                </PrivateRoute>
+              } />
+              <Route path="/admin/category/:id/edit" element={
+                <PrivateRoute>
+                  <CategoryEditPage />
+                </PrivateRoute>
+              } />
               
               {/* 마켓플레이스 관리 */}
-              <PrivateRoute path="/admin/marketplaces" component={MarketplaceListPage} exact />
-              <PrivateRoute path="/admin/marketplace/create" component={MarketplaceEditPage} exact />
-              <PrivateRoute path="/admin/marketplace/:id/edit" component={MarketplaceEditPage} exact />
+              <Route path="/admin/marketplaces" element={
+                <PrivateRoute>
+                  <MarketplaceListPage />
+                </PrivateRoute>
+              } />
+              <Route path="/admin/marketplace/create" element={
+                <PrivateRoute>
+                  <MarketplaceEditPage />
+                </PrivateRoute>
+              } />
+              <Route path="/admin/marketplace/:id/edit" element={
+                <PrivateRoute>
+                  <MarketplaceEditPage />
+                </PrivateRoute>
+              } />
               
               {/* 배치 작업 관리 */}
-              <PrivateRoute path="/admin/batch-jobs" component={BatchJobListPage} exact />
-              <PrivateRoute path="/admin/batch-jobs/:id" component={BatchJobDetailPage} exact />
+              <Route path="/admin/batch-jobs" element={
+                <PrivateRoute>
+                  <BatchJobListPage />
+                </PrivateRoute>
+              } />
+              <Route path="/admin/batch-jobs/:id" element={
+                <PrivateRoute>
+                  <BatchJobDetailPage />
+                </PrivateRoute>
+              } />
               
               {/* 사용자 관리 */}
-              <PrivateRoute path="/admin/users" component={UserListPage} exact isAdmin />
-              <PrivateRoute path="/admin/user/:id/edit" component={UserEditPage} exact isAdmin />
-              <PrivateRoute path="/profile" component={ProfilePage} exact />
+              <Route path="/admin/users" element={
+                <PrivateRoute isAdmin={true}>
+                  <UserListPage />
+                </PrivateRoute>
+              } />
+              <Route path="/admin/user/:id/edit" element={
+                <PrivateRoute isAdmin={true}>
+                  <UserEditPage />
+                </PrivateRoute>
+              } />
+              <Route path="/profile" element={
+                <PrivateRoute>
+                  <ProfilePage />
+                </PrivateRoute>
+              } />
                             
               {/* 404 페이지 */}
-              <Route component={NotFoundPage} />
-            </Switch>
+              <Route path="*" element={<NotFoundPage />} />
+            </Routes>
           </Content>
           
           <Footer />
