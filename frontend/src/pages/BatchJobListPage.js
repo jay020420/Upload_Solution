@@ -36,6 +36,9 @@ const BatchJobListPage = ({ history }) => {
   const [sortOrder, setSortOrder] = useState('desc');
   
   // Redux 상태
+  const userLogin = useSelector(state => state.userLogin);
+  const { userInfo } = userLogin;
+  
   const batchJobList = useSelector(state => state.batchJobList);
   const { loading, error, jobs, page, pages, total } = batchJobList;
   
@@ -68,8 +71,13 @@ const BatchJobListPage = ({ history }) => {
   
   // 페이지 로드 시 데이터 조회
   useEffect(() => {
-    fetchJobs();
-  }, [dispatch, currentPage, pageSize, sortField, sortOrder]);
+    // 로그인 확인
+    if (!userInfo) {
+      history.push('/login');
+    } else {
+      fetchJobs();
+    }
+  }, [dispatch, history, userInfo, currentPage, pageSize, sortField, sortOrder]);
   
   // 작업 상태 업데이트 또는 삭제 성공 후 목록 갱신
   useEffect(() => {
@@ -202,10 +210,10 @@ const BatchJobListPage = ({ history }) => {
       width: 150,
       render: (progress, record) => (
         <Tooltip 
-          title={`${progress.processed}/${progress.total} 항목 처리됨 (성공: ${progress.succeeded}, 실패: ${progress.failed})`}
+          title={`${progress?.processed || 0}/${progress?.total || 0} 항목 처리됨 (성공: ${progress?.succeeded || 0}, 실패: ${progress?.failed || 0})`}
         >
           <Progress 
-            percent={progress.total ? Math.round((progress.processed / progress.total) * 100) : 0}
+            percent={progress?.total ? Math.round((progress.processed / progress.total) * 100) : 0}
             size="small"
             status={
               record.status === 'failed' ? 'exception' :
