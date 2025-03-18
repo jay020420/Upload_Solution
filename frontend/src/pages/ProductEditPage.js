@@ -1,7 +1,8 @@
 // src/pages/ProductEditPage.js
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { PageHeader, Alert } from 'antd';
+import { Alert } from 'antd';
+import { PageHeader } from '@ant-design/pro-components';
 import { getProductDetails } from '../actions/productActions';
 import ProductForm from '../components/products/ProductForm';
 import Loader from '../components/common/Loader';

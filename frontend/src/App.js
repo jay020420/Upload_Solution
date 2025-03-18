@@ -31,7 +31,7 @@ import BatchJobListPage from './pages/BatchJobListPage';
 import BatchJobDetailPage from './pages/BatchJobDetailPage';
 
 // Actions
-import { getUserDetails } from './actions/userAction';
+import { getUserDetails } from './actions/userActions';
 
 // CSS
 import './App.css';
@@ -57,7 +57,7 @@ const App = () => {
       <Layout style={{ minHeight: '100vh' }}>
         {userInfo && <Sidebar />}
         
-        <Layout className="site-layout">
+        <Layout style={{ marginLeft: userInfo ? 200 : 0, transition: 'margin-left 0.2s' }}>
           <Header />
           
           <Content style={{ margin: '24px 16px', padding: 24, minHeight: 280 }}>

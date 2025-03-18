@@ -1,7 +1,6 @@
 // src/store.js
-import { createStore, combineReducers, applyMiddleware } from 'redux';
-import thunk from 'redux-thunk';
-import { composeWithDevTools } from 'redux-devtools-extension';
+import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
+import { thunk } from 'redux-thunk';
 
 // 사용자 관련 리듀서
 import {
@@ -51,64 +50,64 @@ import {
 
 // 배치 작업 관련 리듀서
 import {
-    batchJobListReducer,
-    batchJobDetailsReducer,
-    batchJobCreateReducer,
-    batchJobStatusUpdateReducer,
-    batchJobDeleteReducer,
-    batchJobItemsReducer,
-    batchJobLogsReducer
-  } from './reducers/batchJobReducers';
+  batchJobListReducer,
+  batchJobDetailsReducer,
+  batchJobCreateReducer,
+  batchJobStatusUpdateReducer,
+  batchJobDeleteReducer,
+  batchJobItemsReducer,
+  batchJobLogsReducer
+} from './reducers/batchJobReducers';
   
-  // 모든 리듀서 결합
-  const reducer = combineReducers({
-    // 사용자 리듀서
-    userLogin: userLoginReducer,
-    userRegister: userRegisterReducer,
-    userDetails: userDetailsReducer,
-    userUpdateProfile: userUpdateProfileReducer,
-    userList: userListReducer,
-    userDelete: userDeleteReducer,
-    userUpdate: userUpdateReducer,
-    
-    // 상품 리듀서
-    productList: productListReducer,
-    productDetails: productDetailsReducer,
-    productCreate: productCreateReducer,
-    productUpdate: productUpdateReducer,
-    productDelete: productDeleteReducer,
-    productUploadImage: productUploadImageReducer,
-    productBulkUpload: productBulkUploadReducer,
-    productExport: productExportReducer,
-    productSyncMarketplace: productSyncMarketplaceReducer,
-    
-    // 카테고리 리듀서
-    categoryList: categoryListReducer,
-    categoryDetails: categoryDetailsReducer,
-    categoryCreate: categoryCreateReducer,
-    categoryUpdate: categoryUpdateReducer,
-    categoryDelete: categoryDeleteReducer,
-    
-    // 마켓플레이스 리듀서
-    marketplaceList: marketplaceListReducer,
-    marketplaceDetails: marketplaceDetailsReducer,
-    marketplaceCreate: marketplaceCreateReducer,
-    marketplaceUpdate: marketplaceUpdateReducer,
-    marketplaceDelete: marketplaceDeleteReducer,
-    marketplaceAccountCreate: marketplaceAccountCreateReducer,
-    marketplaceAccountUpdate: marketplaceAccountUpdateReducer,
-    marketplaceAccountDelete: marketplaceAccountDeleteReducer,
-    marketplaceSyncLogs: marketplaceSyncLogsReducer,
-    
-    // 배치 작업 리듀서
-    batchJobList: batchJobListReducer,
-    batchJobDetails: batchJobDetailsReducer,
-    batchJobCreate: batchJobCreateReducer,
-    batchJobStatusUpdate: batchJobStatusUpdateReducer,
-    batchJobDelete: batchJobDeleteReducer,
-    batchJobItems: batchJobItemsReducer,
-    batchJobLogs: batchJobLogsReducer
-  });
+// 모든 리듀서 결합
+const reducer = combineReducers({
+  // 사용자 리듀서
+  userLogin: userLoginReducer,
+  userRegister: userRegisterReducer,
+  userDetails: userDetailsReducer,
+  userUpdateProfile: userUpdateProfileReducer,
+  userList: userListReducer,
+  userDelete: userDeleteReducer,
+  userUpdate: userUpdateReducer,
+  
+  // 상품 리듀서
+  productList: productListReducer,
+  productDetails: productDetailsReducer,
+  productCreate: productCreateReducer,
+  productUpdate: productUpdateReducer,
+  productDelete: productDeleteReducer,
+  productUploadImage: productUploadImageReducer,
+  productBulkUpload: productBulkUploadReducer,
+  productExport: productExportReducer,
+  productSyncMarketplace: productSyncMarketplaceReducer,
+  
+  // 카테고리 리듀서
+  categoryList: categoryListReducer,
+  categoryDetails: categoryDetailsReducer,
+  categoryCreate: categoryCreateReducer,
+  categoryUpdate: categoryUpdateReducer,
+  categoryDelete: categoryDeleteReducer,
+  
+  // 마켓플레이스 리듀서
+  marketplaceList: marketplaceListReducer,
+  marketplaceDetails: marketplaceDetailsReducer,
+  marketplaceCreate: marketplaceCreateReducer,
+  marketplaceUpdate: marketplaceUpdateReducer,
+  marketplaceDelete: marketplaceDeleteReducer,
+  marketplaceAccountCreate: marketplaceAccountCreateReducer,
+  marketplaceAccountUpdate: marketplaceAccountUpdateReducer,
+  marketplaceAccountDelete: marketplaceAccountDeleteReducer,
+  marketplaceSyncLogs: marketplaceSyncLogsReducer,
+  
+  // 배치 작업 리듀서
+  batchJobList: batchJobListReducer,
+  batchJobDetails: batchJobDetailsReducer,
+  batchJobCreate: batchJobCreateReducer,
+  batchJobStatusUpdate: batchJobStatusUpdateReducer,
+  batchJobDelete: batchJobDeleteReducer,
+  batchJobItems: batchJobItemsReducer,
+  batchJobLogs: batchJobLogsReducer
+});
 
 // 로컬 스토리지에서 사용자 정보 가져오기
 const userInfoFromStorage = localStorage.getItem('userInfo')
@@ -123,11 +122,16 @@ const initialState = {
 // 미들웨어 설정
 const middleware = [thunk];
 
+// Redux DevTools Extension 설정
+const composeEnhancers = typeof window === 'object' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ 
+  ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({}) 
+  : compose;
+
 // 스토어 생성
 const store = createStore(
   reducer,
   initialState,
-  composeWithDevTools(applyMiddleware(...middleware))
+  composeEnhancers(applyMiddleware(...middleware))
 );
 
 export default store;

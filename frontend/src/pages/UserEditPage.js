@@ -3,8 +3,9 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { 
   Form, Input, Button, Card, Switch, Alert, 
-  PageHeader, Divider, Space, message
+  Divider, Space, message
 } from 'antd';
+import { PageHeader } from '@ant-design/pro-components';
 import { SaveOutlined, UserOutlined, MailOutlined, LockOutlined } from '@ant-design/icons';
 import { getUserDetails, updateUser } from '../actions/userActions';
 import { USER_UPDATE_RESET } from '../constants/userConstants';

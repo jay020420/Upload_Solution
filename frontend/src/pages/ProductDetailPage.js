@@ -4,9 +4,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { 
   Row, Col, Card, Button, Typography, Descriptions, Tag, Image, 
-  Divider, Table, Tabs, Popconfirm, Alert, PageHeader, Space,
+  Divider, Table, Tabs, Popconfirm, Alert, Space,
   List, Timeline, Spin, Tooltip, Modal, message
 } from 'antd';
+import { PageHeader } from '@ant-design/pro-components';
 import { 
   EditOutlined, DeleteOutlined, SyncOutlined, 
   ShopOutlined, PictureOutlined, CheckCircleOutlined, 

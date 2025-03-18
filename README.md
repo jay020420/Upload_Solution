@@ -1,5 +1,9 @@
 업로드 솔루션
 
+Todo
+history.push(path) 호출을 navigate(path)로 변경
+
+
 ```
 product-upload-solution/
 ├── backend/                    # 백엔드 (Node.js/Express)

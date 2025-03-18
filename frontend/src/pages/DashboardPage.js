@@ -4,8 +4,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { 
   Row, Col, Card, Statistic, Table, Button, Typography, 
-  PageHeader, Progress, Timeline, Empty, Spin, Alert 
+  Progress, Timeline, Empty, Spin, Alert 
 } from 'antd';
+import { PageHeader } from '@ant-design/pro-components';
 import { 
   ShoppingOutlined, AppstoreOutlined, ShopOutlined, 
   SyncOutlined, FileExcelOutlined, PlusOutlined, 

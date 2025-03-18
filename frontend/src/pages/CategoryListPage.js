@@ -4,8 +4,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { 
   Table, Button, Card, Input, Space, Modal, Tag, 
-  Typography, PageHeader, Tooltip, Popconfirm, message 
+  Typography, Tooltip, Popconfirm, message 
 } from 'antd';
+import { PageHeader } from '@ant-design/pro-components';
 import { 
   PlusOutlined, EditOutlined, DeleteOutlined, 
   SearchOutlined, ReloadOutlined, ExclamationCircleOutlined 

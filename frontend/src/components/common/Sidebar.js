@@ -49,7 +49,7 @@ const Sidebar = () => {
       style={{
         overflow: 'auto',
         height: '100vh',
-        position: 'fixed',
+        position: 'absolute',
         left: 0,
         zIndex: 999
       }}

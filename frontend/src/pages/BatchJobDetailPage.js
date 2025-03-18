@@ -5,14 +5,16 @@ import { Link, useParams, useNavigate } from 'react-router-dom';
 import { 
   Card, Row, Col, Descriptions, Tag, Button, Tabs, 
   Table, Progress, Timeline, Tooltip, Statistic, 
-  PageHeader, Space, Spin, Result, Badge, Divider,
+  Space, Spin, Result, Badge, Divider,
   Alert, Modal, message, Typography, Select
 } from 'antd';
+import { PageHeader } from '@ant-design/pro-components';
 import { 
   ArrowLeftOutlined, SyncOutlined, CheckCircleOutlined, 
   CloseCircleOutlined, InfoCircleOutlined, WarningOutlined,
   PlayCircleOutlined, PauseCircleOutlined, StopOutlined,
-  ReloadOutlined, FieldTimeOutlined, DatabaseOutlined
+  ReloadOutlined, FieldTimeOutlined, DatabaseOutlined,
+  TagOutlined
 } from '@ant-design/icons';
 import moment from 'moment';
 

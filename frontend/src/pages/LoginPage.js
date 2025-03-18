@@ -1,7 +1,7 @@
 // src/pages/LoginPage.js
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom'; // useNavigate와 useLocation 추가
 import { Form, Input, Button, Card, Row, Col, Typography, Alert, Divider } from 'antd';
 import { UserOutlined, LockOutlined, MailOutlined } from '@ant-design/icons';
 import { login } from '../actions/userActions';
@@ -9,9 +9,11 @@ import Loader from '../components/common/Loader';
 
 const { Title, Text } = Typography;
 
-const LoginPage = ({ location, history }) => {
+const LoginPage = () => { // props 제거
   const [form] = Form.useForm();
   const dispatch = useDispatch();
+  const navigate = useNavigate(); // useNavigate 사용
+  const location = useLocation(); // useLocation 사용
   
   // Redux 상태
   const userLogin = useSelector(state => state.userLogin);
@@ -23,9 +25,9 @@ const LoginPage = ({ location, history }) => {
   // 이미 로그인된 경우 리디렉션
   useEffect(() => {
     if (userInfo) {
-      history.push(redirect);
+      navigate(redirect); // history.push 대신 navigate 사용
     }
-  }, [history, userInfo, redirect]);
+  }, [navigate, userInfo, redirect]); // 의존성 배열 업데이트
   
   // 폼 제출 처리
   const onFinish = (values) => {

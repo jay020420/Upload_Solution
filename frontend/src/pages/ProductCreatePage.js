@@ -1,7 +1,8 @@
 // src/pages/ProductCreatePage.js
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { PageHeader, Alert } from 'antd';
+import { Alert } from 'antd';
+import { PageHeader } from '@ant-design/pro-components';
 import ProductForm from '../components/products/ProductForm';
 import Loader from '../components/common/Loader';
 

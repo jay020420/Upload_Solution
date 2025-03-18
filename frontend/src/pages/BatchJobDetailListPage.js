@@ -5,9 +5,10 @@ import { Link } from 'react-router-dom';
 import { 
   Card, Row, Col, Descriptions, Tag, Button, Tabs, 
   Table, Progress, Timeline, Tooltip, Statistic, 
-  PageHeader, Space, Spin, Result, Badge, Divider,
+  Space, Spin, Result, Badge, Divider,
   Alert, Modal, message 
 } from 'antd';
+import { PageHeader } from '@ant-design/pro-components';
 import { 
   ArrowLeftOutlined, SyncOutlined, CheckCircleOutlined, 
   CloseCircleOutlined, InfoCircleOutlined, WarningOutlined,

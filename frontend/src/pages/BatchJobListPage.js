@@ -5,13 +5,17 @@ import { Link } from 'react-router-dom';
 import { 
   Table, Button, Card, Input, Select, Row, Col, 
   Tag, Tooltip, Dropdown, Menu, Space, DatePicker, 
-  PageHeader, Progress, Badge, Popconfirm, Typography 
+  Progress, Badge, Popconfirm, Typography 
 } from 'antd';
+import { PageHeader } from '@ant-design/pro-components';
 import { 
-  SearchOutlined, FilterOutlined, SyncOutlined, 
-  CheckCircleOutlined, CloseCircleOutlined, PauseCircleOutlined,
-  MoreOutlined, DeleteOutlined, PlayCircleOutlined,
-  EyeOutlined, StopOutlined, FieldTimeOutlined
+  PlusOutlined, SearchOutlined, FilterOutlined, 
+  SyncOutlined, MoreOutlined, DownloadOutlined,
+  DeleteOutlined, EditOutlined, ExportOutlined,
+  EyeOutlined, LinkOutlined, FileExcelOutlined,
+  DatabaseOutlined, TagOutlined, WarningOutlined,
+  CloseCircleOutlined, FieldTimeOutlined, CheckCircleOutlined,
+  StopOutlined, PauseCircleOutlined, PlayCircleOutlined
 } from '@ant-design/icons';
 import moment from 'moment';
 import { listBatchJobs, updateBatchJobStatus, deleteBatchJob } from '../actions/batchJobActions';

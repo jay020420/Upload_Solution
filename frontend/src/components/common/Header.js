@@ -7,7 +7,7 @@ import {
   UserOutlined, LogoutOutlined, SettingOutlined, 
   MenuUnfoldOutlined, MenuFoldOutlined, BellOutlined 
 } from '@ant-design/icons';
-import { logout } from '../../actions/userAction';
+import { logout } from '../../actions/userActions';
 
 const { Header: AntHeader } = Layout;
 const { Title, Text } = Typography;

@@ -3,12 +3,13 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { 
   Form, Input, Button, Card, Switch, Upload, Tabs,
-  Select, Alert, Space, PageHeader, Divider, Typography,
-  Table, Row, Col, Modal, message
+  Select, Alert, Space, Divider, Typography,
+  Table, Row, Col, Modal, message, Tag
 } from 'antd';
+import { PageHeader } from '@ant-design/pro-components';
 import { 
   UploadOutlined, SaveOutlined, PlusOutlined, 
-  DeleteOutlined, KeyOutlined
+  DeleteOutlined, KeyOutlined, EditOutlined
 } from '@ant-design/icons';
 import { 
   getMarketplaceDetails, 

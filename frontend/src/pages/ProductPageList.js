@@ -5,8 +5,9 @@ import { Link } from 'react-router-dom';
 import { 
   Table, Button, Card, Input, Select, Row, Col, 
   Tag, Tooltip, Dropdown, Menu, Space, Modal, Typography,
-  DatePicker, Statistic, PageHeader, Alert
+  DatePicker, Statistic, Alert
 } from 'antd';
+import { PageHeader } from '@ant-design/pro-components';
 import { 
   PlusOutlined, SearchOutlined, FilterOutlined, 
   SyncOutlined, MoreOutlined, DownloadOutlined,

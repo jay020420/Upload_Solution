@@ -3,8 +3,9 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { 
   Form, Input, Button, Card, Select, Switch, 
-  InputNumber, Upload, message, PageHeader, Alert 
+  InputNumber, Upload, message, Alert 
 } from 'antd';
+import { PageHeader } from '@ant-design/pro-components';
 import { UploadOutlined, SaveOutlined } from '@ant-design/icons';
 import { 
   getCategoryDetails, 
