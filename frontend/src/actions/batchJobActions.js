@@ -1,155 +1,269 @@
-// src/reducers/batchJobReducers.js
+// src/actions/batchJobActions.js
+import axios from 'axios';
 import {
-    BATCH_JOB_LIST_REQUEST,
-    BATCH_JOB_LIST_SUCCESS,
-    BATCH_JOB_LIST_FAIL,
-    BATCH_JOB_LIST_RESET,
-    BATCH_JOB_DETAILS_REQUEST,
-    BATCH_JOB_DETAILS_SUCCESS,
-    BATCH_JOB_DETAILS_FAIL,
-    BATCH_JOB_DETAILS_RESET,
-    BATCH_JOB_CREATE_REQUEST,
-    BATCH_JOB_CREATE_SUCCESS,
-    BATCH_JOB_CREATE_FAIL,
-    BATCH_JOB_CREATE_RESET,
-    BATCH_JOB_STATUS_UPDATE_REQUEST,
-    BATCH_JOB_STATUS_UPDATE_SUCCESS,
-    BATCH_JOB_STATUS_UPDATE_FAIL,
-    BATCH_JOB_STATUS_UPDATE_RESET,
-    BATCH_JOB_DELETE_REQUEST,
-    BATCH_JOB_DELETE_SUCCESS,
-    BATCH_JOB_DELETE_FAIL,
-    BATCH_JOB_DELETE_RESET,
-    BATCH_JOB_ITEMS_REQUEST,
-    BATCH_JOB_ITEMS_SUCCESS,
-    BATCH_JOB_ITEMS_FAIL,
-    BATCH_JOB_ITEMS_RESET,
-    BATCH_JOB_LOGS_REQUEST,
-    BATCH_JOB_LOGS_SUCCESS,
-    BATCH_JOB_LOGS_FAIL,
-    BATCH_JOB_LOGS_RESET
-  } from '../constants/batchJobConstants';
-  
-  // 배치 작업 목록 리듀서
-  export const batchJobListReducer = (state = { jobs: [] }, action) => {
-    switch (action.type) {
-      case BATCH_JOB_LIST_REQUEST:
-        return { loading: true, jobs: [] };
-      case BATCH_JOB_LIST_SUCCESS:
-        return {
-          loading: false,
-          jobs: action.payload.jobs,
-          page: action.payload.page,
-          pages: action.payload.pages,
-          total: action.payload.total
-        };
-      case BATCH_JOB_LIST_FAIL:
-        return { loading: false, error: action.payload };
-      case BATCH_JOB_LIST_RESET:
-        return { jobs: [] };
-      default:
-        return state;
-    }
-  };
-  
-  // 배치 작업 상세 리듀서
-  export const batchJobDetailsReducer = (state = { job: {} }, action) => {
-    switch (action.type) {
-      case BATCH_JOB_DETAILS_REQUEST:
-        return { ...state, loading: true };
-      case BATCH_JOB_DETAILS_SUCCESS:
-        return { loading: false, job: action.payload };
-      case BATCH_JOB_DETAILS_FAIL:
-        return { loading: false, error: action.payload };
-      case BATCH_JOB_DETAILS_RESET:
-        return { job: {} };
-      default:
-        return state;
-    }
-  };
-  
-  // 배치 작업 생성 리듀서
-  export const batchJobCreateReducer = (state = {}, action) => {
-    switch (action.type) {
-      case BATCH_JOB_CREATE_REQUEST:
-        return { loading: true };
-      case BATCH_JOB_CREATE_SUCCESS:
-        return { loading: false, success: true, job: action.payload };
-      case BATCH_JOB_CREATE_FAIL:
-        return { loading: false, error: action.payload };
-      case BATCH_JOB_CREATE_RESET:
-        return {};
-      default:
-        return state;
-    }
-  };
-  
-  // 배치 작업 상태 업데이트 리듀서
-  export const batchJobStatusUpdateReducer = (state = {}, action) => {
-    switch (action.type) {
-      case BATCH_JOB_STATUS_UPDATE_REQUEST:
-        return { loading: true };
-      case BATCH_JOB_STATUS_UPDATE_SUCCESS:
-        return { loading: false, success: true, job: action.payload };
-      case BATCH_JOB_STATUS_UPDATE_FAIL:
-        return { loading: false, error: action.payload };
-      case BATCH_JOB_STATUS_UPDATE_RESET:
-        return {};
-      default:
-        return state;
-    }
-  };
-  
-  // 배치 작업 삭제 리듀서
-  export const batchJobDeleteReducer = (state = {}, action) => {
-    switch (action.type) {
-      case BATCH_JOB_DELETE_REQUEST:
-        return { loading: true };
-      case BATCH_JOB_DELETE_SUCCESS:
-        return { loading: false, success: true };
-      case BATCH_JOB_DELETE_FAIL:
-        return { loading: false, error: action.payload };
-      case BATCH_JOB_DELETE_RESET:
-        return {};
-      default:
-        return state;
-    }
-  };
-  
-  // 배치 작업 항목 리듀서
-  export const batchJobItemsReducer = (state = { items: [] }, action) => {
-    switch (action.type) {
-      case BATCH_JOB_ITEMS_REQUEST:
-        return { loading: true, items: [] };
-      case BATCH_JOB_ITEMS_SUCCESS:
-        return {
-          loading: false,
-          items: action.payload.items,
-          page: action.payload.page,
-          pages: action.payload.pages,
-          total: action.payload.total
-        };
-      case BATCH_JOB_ITEMS_FAIL:
-        return { loading: false, error: action.payload };
-      case BATCH_JOB_ITEMS_RESET:
-        return { items: [] };
-      default:
-        return state;
-    }
-  };
-  
-  // 배치 작업 로그 리듀서
-  export const batchJobLogsReducer = (state = { logs: [] }, action) => {
-    switch (action.type) {
-      case BATCH_JOB_LOGS_REQUEST:
-        return { loading: true, logs: [] };
-      case BATCH_JOB_LOGS_SUCCESS:
-        return { loading: false, logs: action.payload };
-      case BATCH_JOB_LOGS_FAIL:
-        return { loading: false, error: action.payload };
-      case BATCH_JOB_LOGS_RESET:
-        return { logs: [] };
-      default:
-        return state;
-    }
-  };
+  BATCH_JOB_LIST_REQUEST,
+  BATCH_JOB_LIST_SUCCESS,
+  BATCH_JOB_LIST_FAIL,
+  BATCH_JOB_DETAILS_REQUEST,
+  BATCH_JOB_DETAILS_SUCCESS,
+  BATCH_JOB_DETAILS_FAIL,
+  BATCH_JOB_CREATE_REQUEST,
+  BATCH_JOB_CREATE_SUCCESS,
+  BATCH_JOB_CREATE_FAIL,
+  BATCH_JOB_STATUS_UPDATE_REQUEST,
+  BATCH_JOB_STATUS_UPDATE_SUCCESS,
+  BATCH_JOB_STATUS_UPDATE_FAIL,
+  BATCH_JOB_DELETE_REQUEST,
+  BATCH_JOB_DELETE_SUCCESS,
+  BATCH_JOB_DELETE_FAIL,
+  BATCH_JOB_ITEMS_REQUEST,
+  BATCH_JOB_ITEMS_SUCCESS,
+  BATCH_JOB_ITEMS_FAIL,
+  BATCH_JOB_LOGS_REQUEST,
+  BATCH_JOB_LOGS_SUCCESS,
+  BATCH_JOB_LOGS_FAIL
+} from '../constants/batchJobConstants';
+
+import { BASE_URL } from '../constants/apiConstants';
+
+// 배치 작업 목록 조회
+export const listBatchJobs = (params = {}) => async (dispatch, getState) => {
+  try {
+    dispatch({ type: BATCH_JOB_LIST_REQUEST });
+    
+    // 인증 헤더 설정
+    const { 
+      userLogin: { userInfo } 
+    } = getState();
+    
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userInfo.token}`
+      },
+      params
+    };
+    
+    // API 호출
+    const { data } = await axios.get(`${BASE_URL}/api/batch-jobs`, config);
+    
+    dispatch({
+      type: BATCH_JOB_LIST_SUCCESS,
+      payload: data
+    });
+  } catch (error) {
+    dispatch({
+      type: BATCH_JOB_LIST_FAIL,
+      payload: error.response && error.response.data.message 
+        ? error.response.data.message 
+        : error.message
+    });
+  }
+};
+
+// 배치 작업 상세 조회
+export const getBatchJobDetails = (id) => async (dispatch, getState) => {
+  try {
+    dispatch({ type: BATCH_JOB_DETAILS_REQUEST });
+    
+    // 인증 헤더 설정
+    const { userLogin: { userInfo } } = getState();
+    
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userInfo.token}`
+      }
+    };
+    
+    // API 호출
+    const { data } = await axios.get(`${BASE_URL}/api/batch-jobs/${id}`, config);
+    
+    dispatch({
+      type: BATCH_JOB_DETAILS_SUCCESS,
+      payload: data
+    });
+  } catch (error) {
+    dispatch({
+      type: BATCH_JOB_DETAILS_FAIL,
+      payload: error.response && error.response.data.message 
+        ? error.response.data.message 
+        : error.message
+    });
+  }
+};
+
+// 배치 작업 생성
+export const createBatchJob = (jobData) => async (dispatch, getState) => {
+  try {
+    dispatch({ type: BATCH_JOB_CREATE_REQUEST });
+    
+    // 인증 헤더 설정
+    const { userLogin: { userInfo } } = getState();
+    
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${userInfo.token}`
+      }
+    };
+    
+    // API 호출
+    const { data } = await axios.post(
+      `${BASE_URL}/api/batch-jobs`, 
+      jobData, 
+      config
+    );
+    
+    dispatch({
+      type: BATCH_JOB_CREATE_SUCCESS,
+      payload: data
+    });
+    
+    return data;
+  } catch (error) {
+    dispatch({
+      type: BATCH_JOB_CREATE_FAIL,
+      payload: error.response && error.response.data.message 
+        ? error.response.data.message 
+        : error.message
+    });
+    throw error;
+  }
+};
+
+// 배치 작업 상태 업데이트
+export const updateBatchJobStatus = (id, status) => async (dispatch, getState) => {
+  try {
+    dispatch({ type: BATCH_JOB_STATUS_UPDATE_REQUEST });
+    
+    // 인증 헤더 설정
+    const { userLogin: { userInfo } } = getState();
+    
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${userInfo.token}`
+      }
+    };
+    
+    // API 호출
+    const { data } = await axios.put(
+      `${BASE_URL}/api/batch-jobs/${id}/status`, 
+      { status }, 
+      config
+    );
+    
+    dispatch({
+      type: BATCH_JOB_STATUS_UPDATE_SUCCESS,
+      payload: data
+    });
+    
+    return data;
+  } catch (error) {
+    dispatch({
+      type: BATCH_JOB_STATUS_UPDATE_FAIL,
+      payload: error.response && error.response.data.message 
+        ? error.response.data.message 
+        : error.message
+    });
+    throw error;
+  }
+};
+
+// 배치 작업 삭제
+export const deleteBatchJob = (id) => async (dispatch, getState) => {
+  try {
+    dispatch({ type: BATCH_JOB_DELETE_REQUEST });
+    
+    // 인증 헤더 설정
+    const { userLogin: { userInfo } } = getState();
+    
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userInfo.token}`
+      }
+    };
+    
+    // API 호출
+    await axios.delete(`${BASE_URL}/api/batch-jobs/${id}`, config);
+    
+    dispatch({
+      type: BATCH_JOB_DELETE_SUCCESS
+    });
+  } catch (error) {
+    dispatch({
+      type: BATCH_JOB_DELETE_FAIL,
+      payload: error.response && error.response.data.message 
+        ? error.response.data.message 
+        : error.message
+    });
+  }
+};
+
+// 배치 작업 항목 조회
+export const getBatchJobItems = (jobId, params = {}) => async (dispatch, getState) => {
+  try {
+    dispatch({ type: BATCH_JOB_ITEMS_REQUEST });
+    
+    // 인증 헤더 설정
+    const { userLogin: { userInfo } } = getState();
+    
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userInfo.token}`
+      },
+      params
+    };
+    
+    // API 호출
+    const { data } = await axios.get(
+      `${BASE_URL}/api/batch-jobs/${jobId}/items`, 
+      config
+    );
+    
+    dispatch({
+      type: BATCH_JOB_ITEMS_SUCCESS,
+      payload: data
+    });
+  } catch (error) {
+    dispatch({
+      type: BATCH_JOB_ITEMS_FAIL,
+      payload: error.response && error.response.data.message 
+        ? error.response.data.message 
+        : error.message
+    });
+  }
+};
+
+// 배치 작업 로그 조회
+export const getBatchJobLogs = (jobId) => async (dispatch, getState) => {
+  try {
+    dispatch({ type: BATCH_JOB_LOGS_REQUEST });
+    
+    // 인증 헤더 설정
+    const { userLogin: { userInfo } } = getState();
+    
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userInfo.token}`
+      }
+    };
+    
+    // API 호출
+    const { data } = await axios.get(
+      `${BASE_URL}/api/batch-jobs/${jobId}/logs`, 
+      config
+    );
+    
+    dispatch({
+      type: BATCH_JOB_LOGS_SUCCESS,
+      payload: data
+    });
+  } catch (error) {
+    dispatch({
+      type: BATCH_JOB_LOGS_FAIL,
+      payload: error.response && error.response.data.message 
+        ? error.response.data.message 
+        : error.message
+    });
+  }
+};

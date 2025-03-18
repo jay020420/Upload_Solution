@@ -19,12 +19,12 @@ const { TabPane } = Tabs;
 const { Text } = Typography;
 const { Option } = Select;
 
-const BatchJobModal = ({ visible, onCancel, selectedProducts = [], refreshProducts }) => {
+const BatchJobModal = ({ visible, onCancel, selectedProducts = [], refreshProducts, initialJobType }) => {
   const [form] = Form.useForm();
   const dispatch = useDispatch();
   
   // 모달 상태
-  const [jobType, setJobType] = useState('product_price_update');
+  const [jobType, setJobType] = useState(initialJobType || 'product_price_update');
   const [actionType, setActionType] = useState('set');
   const [usePercentage, setUsePercentage] = useState(false);
   const [startImmediately, setStartImmediately] = useState(true);

@@ -1,3 +1,13 @@
+// 추가
+import { 
+  PlusOutlined, SearchOutlined, FilterOutlined, 
+  SyncOutlined, MoreOutlined, DownloadOutlined,
+  DeleteOutlined, EditOutlined, ExportOutlined,
+  EyeOutlined, LinkOutlined, FileExcelOutlined,
+  DatabaseOutlined, TagOutlined, WarningOutlined,
+  CloseCircleOutlined
+} from '@ant-design/icons';
+
 {selectedRowKeys.length > 0 && (
     <div style={{ marginBottom: '16px' }}>
       <Space>
